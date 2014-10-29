@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import random
 from django.template.loader import get_template
 from django.http import HttpResponse
 from django.template import Context
@@ -9,6 +10,34 @@ from django.core.paginator import EmptyPage,InvalidPage
 import hashlib
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseRedirect
+import smtplib  
+from email.mime.text import MIMEText  
+
+
+mailto_list=["XXX@qq.com"] # 发送对象的列表
+mail_host="smtp.qq.com"  #设置服务器
+mail_user="754884172"    #用户名
+mail_pass="XXXX"   #密码
+mail_postfix="qq.com"  #发件箱的后缀
+
+def send_mail(to_list,sub,content):  
+    me="南微软"+"<"+mail_user+"@"+mail_postfix+">"  
+    msg = MIMEText(content,_subtype='plain',_charset='gb2312')  
+    msg['Subject'] = sub  
+    msg['From'] = me  
+    msg['To'] = ";".join(to_list)  
+    try:  
+        server = smtplib.SMTP()  
+        server.connect(mail_host)  
+        server.login(mail_user,mail_pass)  
+        server.sendmail(me, to_list, msg.as_string())  
+        server.close()  
+        return True  
+    except Exception, e:  
+        print str(e)  
+        return False
+# send_mail(mailto_list,"hello","hello world！")
+
 
 def hello(request):
     return HttpResponse('hello world')
@@ -263,4 +292,12 @@ def logout(requst):
         return HttpResponse("请先登录！")
     del requst.session['user']
     return HttpResponseRedirect("/login")
+def getstr(n):#获得指定长度随机字符串
+    st = ''
+    while len(st) < n:
+        temp = chr(97+random.randint(0,25))
+        if st.find(temp) == -1 :
+            st = st.join(['',temp])
+    return st
+
     
