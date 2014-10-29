@@ -6,13 +6,17 @@ from os import environ
 
 debug = not environ.get("APP_NAME", "") 
 if debug:
+
+
+
     MYSQL_DB = 'nkumcs' 
     MYSQL_USER = 'root' 
     MYSQL_PASS = '1' 
     MYSQL_HOST_M = '127.0.0.1' 
     MYSQL_HOST_S = '127.0.0.1' 
     MYSQL_PORT = '3306' 
-else: #SAE 
+else: 
+#SAE 
     import sae.const 
     MYSQL_DB = sae.const.MYSQL_DB 
     MYSQL_USER = sae.const.MYSQL_USER 
@@ -56,6 +60,9 @@ TIME_ZONE = 'America/Chicago'
 LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
+SESSION_COOKIE_AGE=60*30
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -125,7 +132,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'member.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'member.wsgi.application'
+WSGI_APPLICATION = 'testzzq.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".

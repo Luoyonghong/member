@@ -26,6 +26,8 @@ def login(request):
 def index(request):# 显示详细信息
     index=get_template('index.html')
     user=request.session.get('user')
+    if user is None:
+        return HttpResponse("请先登录！")
     #user = {'name': 'Sally', 'depart':'技术部','grade':'大一','college':'软件学园','major':'软件工程','phone':'15224652255','QQ':'7983452798'}
     
     indexHtml=index.render(Context({'user':user}))
@@ -34,12 +36,17 @@ def index_of_others(request,offset):
     
     index=get_template('index_of_others.html')
     user=User.objects.get(name=offset)
+    u=request.session.get('user')
+    if u is None:
+        return HttpResponse("请先登录！")
     indexHtml=index.render(Context({'user':user}))
     return HttpResponse(indexHtml)
 @csrf_exempt
 def edit(request):
     edit=get_template('edit.html')
     user=request.session.get('user')
+    if user is None:
+        return HttpResponse("请先登录！")
     editHtml=edit.render(Context({'user':user}))
     return HttpResponse(editHtml)
 @csrf_exempt
@@ -61,6 +68,8 @@ def edit_result(request):
     u=request.session.get('user')
     email=u.email
     user=User.objects.get(email=email)
+    if user is None:
+        return HttpResponse("请先登录！")
     
     user.sex=sex
     user.college=college
@@ -82,6 +91,9 @@ def edit_result(request):
 
 def depart(request,offset):
 	#depart=get_template('depart.html')
+        user=request.session.get('user')
+        if user is None:
+            return HttpResponse("请先登录！")
 	if offset=='all' :
             userlst=User.objects.all()
             paginator = Paginator(userlst, 5)
@@ -245,5 +257,10 @@ def get_paginator(obj,page):
     context["page_objects"]=obj
     context["page_range"]=page_range
     return context
-   
+def logout(requst):
+    user=requst.session.get('user')
+    if user is None:
+        return HttpResponse("请先登录！")
+    del requst.session['user']
+    return HttpResponseRedirect("/login")
     

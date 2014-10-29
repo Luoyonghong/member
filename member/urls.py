@@ -8,7 +8,7 @@ urlpatterns = patterns('',
 	(r'^statics/(?P<path>.*)','django.views.static.serve',{'document_root':'member/statics'}), 
     # Examples:
     url(r'^$', 'member.views.login', name='home'),
-    # url(r'^member/', include('member.foo.urls')),
+    # url(r'^testzzq/', include('testzzq.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -24,5 +24,7 @@ urlpatterns = patterns('',
     url(r'^login_result/$','member.views.login_result'),
     url(r'^index/(.+)/$','member.views.index_of_others'),
     url(r'^edit$','member.views.edit'),
-    url(r'^edit_result/$','member.views.edit_result'),                  
+    url(r'^edit_result/$','member.views.edit_result'),
+    url(r'^logout$','member.views.logout'),
+                       
 )
