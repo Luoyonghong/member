@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.conf.urls import patterns, include, url
 
 # Uncomment the next two lines to enable the admin:
@@ -18,11 +19,11 @@ urlpatterns = patterns('',
     url(r'^reg$','member.views.reg'),
     url(r'^login$','member.views.login'),
     url(r'^index$','member.views.index'),
-    url(r'^depart/(.+)/$','member.views.depart'),
+    url(r'^depart/(.+)/$','member.views.depart'), # 各部门的信息
     url(r'^reg_result/$','member.views.reg_result'),
     url(r'^reg_result/index/$','member.views.index'),
     url(r'^login_result/$','member.views.login_result'),
-    url(r'^index/(.+)/$','member.views.index_of_others'),
+    url(r'^index/(.+)/$','member.views.index_of_others'),# 其他人的详细信息
     url(r'^edit$','member.views.edit'),
     url(r'^edit_result/$','member.views.edit_result'),
     url(r'^logout$','member.views.logout'),
